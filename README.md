@@ -1,2 +1,2 @@
 # Linux_Programming_Practice
-  code from the Understanding Unix/Linux Programming
+  resource:eode from the Understanding Unix/Linux Programming
