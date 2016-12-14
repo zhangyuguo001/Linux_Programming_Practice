@@ -30,6 +30,6 @@ int execute(char *argv[])
     if(wait(&child_info) == -1)
       perror("wait");
   }
-  return  chaild_info;
+  return  chaild_info; 
 }
  
