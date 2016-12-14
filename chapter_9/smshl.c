@@ -27,7 +27,7 @@ int main()
     if((arglist = splitline(cmdline)) != NULL)
     {
       result = execute(arglist);
-      freellist(arglist);
+      freelist(arglist);
     }
     free(cmdline);
   }
@@ -43,6 +43,6 @@ void setup()
 
 void fatal(char *s1,char *s2, int n)
 {
-  fprint (stderr,"Error: %s,%s\n",s1,s2);
+  fprintf(stderr,"Error: %s,%s\n",s1,s2);
   exit(n);
 }

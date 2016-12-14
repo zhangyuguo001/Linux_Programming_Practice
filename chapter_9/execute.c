@@ -25,11 +25,11 @@ int execute(char *argv[])
     signal(SIGQUIT,SIG_DFL);
     execvp(argv[0], argv);
     perror("cannot execute command");
-    exeit(1);
+    exit(1);
   }else{
     if(wait(&child_info) == -1)
       perror("wait");
   }
-  return  chaild_info; 
+  return  child_info; 
 }
  
