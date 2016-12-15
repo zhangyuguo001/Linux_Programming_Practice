@@ -1,14 +1,14 @@
-/*
- * smshl.c small -shell version 1
- * first really useful version after prompting shell
- * this one parses the command line into strings
- * uses fork,exec, wait,and ignores signals
+/* smsh2.c -- small-shell version 2
+ * small shell that wupports command line parsing
+ * and if..then..else.fi logic(by calling process())
+ * note: gcc smsh2.c splitline.c execute.c process.c controlflow.c
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <sys/wait.h>
 #include "smsh.h"
 
 #define DFL_PROMPT ">"
@@ -26,7 +26,7 @@ int main()
   {
     if((arglist = splitline(cmdline)) != NULL)
     {
-      result = execute(arglist);
+      result = process(arglist);
       freelist(arglist);
     }
     free(cmdline);
