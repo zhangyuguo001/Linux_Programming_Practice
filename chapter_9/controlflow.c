@@ -7,7 +7,7 @@
 #include "smsh.h"
 
 enum states {NEUTRAL,WANT_THEN,THEN_BLOCK};
-enum reults {SUCCESS,FALL}；
+enum reults {SUCCESS,FALL};
 
 static int if_state = NEUTRAL;	//中立的
 static int if_result = SUCCESS;
