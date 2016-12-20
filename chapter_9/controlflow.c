@@ -60,7 +60,8 @@ int do_control_command(char **args)
     if(if_state != NEUTRAL)
       rv = syn_err("if unexpected");
     else{
-      last_stat = process(args+1);
+      last_stat = process(args+1);	//递归的使用是为了if语句嵌套另外一个语句？案列运行后未能反映该功能，
+      					//2016-12-20 14:57:01
       if_result = (last_stat == 0?SUCCESS:FALL);
       if_state = WANT_THEN;
       rv = 0;

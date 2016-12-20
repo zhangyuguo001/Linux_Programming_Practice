@@ -1,7 +1,9 @@
 /* smsh2.c -- small-shell version 2
  * small shell that wupports command line parsing
  * and if..then..else.fi logic(by calling process())
- * note: gcc smsh2.c splitline.c execute.c process.c controlflow.c
+ * note: 
+ *    Version smsh2:gcc smsh2.c splitline.c execute.c process.c controlflow.c
+ *    Version smsh3(unrealized):gcc smsh2.c spliteline.c execute.c process2.c controlflow.c builtin.c varlib.c
  */
 
 #include <stdio.h>
