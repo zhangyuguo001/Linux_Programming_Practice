@@ -17,8 +17,51 @@
 
 int main(int ac, char *av[])
 {
+  struct sockaddr_in saddr;	//build our address here
+  struct hostent *hp;		//this is part of our
+  char hostname[HOSTLEN];	//address
+  int sock_id,sock_fd;		//line id,file desc
+  FILE *sock_fp;		//use socket as stream
+  char *ctime();		//convert secs to string
+  time_t thetime;		//the time we report
+  
+  //Step 1: ask kernel for a socket
+  sock_id = socket(PF_INET, SOCK_STREAM, 0);	//get a socket
+  if(sock_id == -1)
+    oops("socket");
 
+  //Step 2: bind address to socket.Address is host,port
+  bzero((void *)&saddr, sizeof(saddr));		//clear out struct
+  gethostname(hostname, HOSTLEN);		//where am I?
+  hp = gethostbyname(hostname);			//get info about host
 
+  bcopy((void *)hp -> h_addr, (void *)&saddr.sin_addr, hp->h_length);
+  saddr.sin_port = htons(PORTNUM);		//fill in socket port
+  saddr.sin_family = AF_INET;			//fill in addr family
+
+  if(bind(sock_id,(struct sockaddr *)&saddr,sizeof(saddr)) != 0)
+    oops("bind");
+
+  //step 3: allow incoming calls with Qsize = 1 on socket
+  if(listen(sock_id,1) != 0)
+    oops("listen");
+
+  //main loop: accept(),write(),close()
+  while(1){
+  sock_fd = accept(sock_id,NULL,NULL);		//wait for a call
+  	printf("Wow! got a call!\n");
+  if(sock_id == -1)
+    	oops("accept");				//error getting calls
+  
+  sock_fp = fdopen(sock_fd, "w");		//we will write to the
+  if(sock_fp == NULL)				//socket as a stream
+  	oops("fdopen");
+  thetime = time(NULL);				//get time
+  						//and converrt to strng
+  fprintf(sock_fp,"The time here is ..");
+  fprintf(sock_fp,"%s",ctime(&thetime));
+  fclose(sock_fp);				//release connection
+  }
   return 0;
 }
 
